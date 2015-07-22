@@ -1,10 +1,10 @@
-#ifndef PEERCOMMUNICATOR_H
-#define PEERCOMMUNICATOR_H
+#ifndef VIRTUALPEERLOOP_H
+#define VIRTUALPEERLOOP_H
 
 #include "PeerNode.h"
 #include <map>
 
-class PeerCommunicator //:public SocketWatcher/*, public SocketClass*/
+class VirtualPeerLoop //:public SocketWatcher/*, public SocketClass*/
 {
     PeerNode* m_peerLoopStart;
     PeerNode* m_connectedPeers;
@@ -13,7 +13,7 @@ class PeerCommunicator //:public SocketWatcher/*, public SocketClass*/
 
 public:
 
-    PeerCommunicator();
+    VirtualPeerLoop();
     void SetPeerNode(map<string,IPPack*> &peerNodes,string myName);
     void ShowPeerLoop();
     PeerNode*& GetConnectedNode();
@@ -28,4 +28,4 @@ public:
 */
 };
 
-#endif // PEERCOMMUNICATOR_H
+#endif // VIRTUALPEERLOOP_H

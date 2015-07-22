@@ -1,6 +1,6 @@
-#include "PeerCommunicator.h"
+#include "VirtualPeerLoop.h"
 
-PeerCommunicator::PeerCommunicator()
+VirtualPeerLoop::VirtualPeerLoop()
 {
 /*    int sockFd = CreateServerSocket(listeningPort);
     CreateEpollSocket(sockFd);
@@ -9,7 +9,7 @@ PeerCommunicator::PeerCommunicator()
 */
 }
 
-void PeerCommunicator::SetPeerNode(map<string,IPPack*> &peerNodes,string myName)
+void VirtualPeerLoop::SetPeerNode(map<string,IPPack*> &peerNodes,string myName)
 {
     map<string,IPPack*>::iterator iter = peerNodes.begin();
     map<string,IPPack*>::iterator iterEnd = peerNodes.end();
@@ -86,17 +86,17 @@ void PeerCommunicator::SetPeerNode(map<string,IPPack*> &peerNodes,string myName)
     }
 }
 
-PeerNode*& PeerCommunicator::GetConnectedNode()
+PeerNode*& VirtualPeerLoop::GetConnectedNode()
 {
     return m_connectedPeers;
 }
 
-PeerNode*& PeerCommunicator::GetThisNode()
+PeerNode*& VirtualPeerLoop::GetThisNode()
 {
     return m_thisNode;
 }
 
-void PeerCommunicator::AddPeerToRightOfNode(string node_name, PeerNode* newNode)
+void VirtualPeerLoop::AddPeerToRightOfNode(string node_name, PeerNode* newNode)
 {
     if(m_peerLoopStart)
     {
@@ -113,7 +113,7 @@ void PeerCommunicator::AddPeerToRightOfNode(string node_name, PeerNode* newNode)
 //    ShowPeerLoop();
 }
 
-void PeerCommunicator::ShowPeerLoop()
+void VirtualPeerLoop::ShowPeerLoop()
 {
     if(m_peerLoopStart)
     {
@@ -135,9 +135,9 @@ void PeerCommunicator::ShowPeerLoop()
 }
 
 /*
-void PeerCommunicator::EventErrorHandler(struct epoll_event &event)
+void VirtualPeerLoop::EventErrorHandler(struct epoll_event &event)
 {
-    printf("PeerCommunicator::EventErrorHandler();\n");
+    printf("VirtualPeerLoop::EventErrorHandler();\n");
     SocketInfo* dh = (SocketInfo*)event.data.ptr;
     if(epoll_ctl(m_epollDescriptor,EPOLL_CTL_DEL,dh->m_socketDescriptor,&event))
     {
@@ -150,9 +150,9 @@ void PeerCommunicator::EventErrorHandler(struct epoll_event &event)
     delete dh;
 }
 
-void PeerCommunicator::AcceptNewClientConnection(struct epoll_event &event)
+void VirtualPeerLoop::AcceptNewClientConnection(struct epoll_event &event)
 {
-    printf("PeerCommunicator()::AcceptNewClientConnection()\n");
+    printf("VirtualPeerLoop()::AcceptNewClientConnection()\n");
 
     struct sockaddr in_addr;
     socklen_t in_len;
@@ -183,10 +183,10 @@ void PeerCommunicator::AcceptNewClientConnection(struct epoll_event &event)
     }
 }
 
-void PeerCommunicator::ProcessClientEvent(struct epoll_event &event)
+void VirtualPeerLoop::ProcessClientEvent(struct epoll_event &event)
 {
 
-    printf("PeerCommunicator::ProcessClientEvent();\n");
+    printf("VirtualPeerLoop::ProcessClientEvent();\n");
     int done = 0;
 
     SocketInfo* dh = (SocketInfo*)event.data.ptr;

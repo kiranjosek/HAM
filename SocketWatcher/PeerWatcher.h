@@ -1,9 +1,9 @@
 #ifndef PEERWATCHER_H
 #define PEERWATCHER_H
 #include "PeerSocketClass.h"
-#include "PeerCommunicator.h"
+#include "VirtualPeerLoop.h"
 
-class PeerWatcher : public PeerSocketClass, public PeerCommunicator
+class PeerWatcher : public PeerSocketClass, public VirtualPeerLoop
 {
 public:
     PeerWatcher();

@@ -16,7 +16,7 @@ HEADERS += \
     SortedIntegerArray.h \
     PeerNode.h \
     PeerList.h \
-    PeerCommunicator.h \
+    VirtualPeerLoop.h \
     DataMultiplexer.h \
     CallBackClass.h \
     Socket/SocketBase.h \
@@ -38,7 +38,7 @@ SOURCES += \
     SortedIntegerArray.cpp \
     PeerNode.cpp \
     PeerList.cpp \
-    PeerCommunicator.cpp \
+    VirtualPeerLoop.cpp \
     main.cpp \
     DataMultiplexer.cpp \
     CallBackClass.cpp \

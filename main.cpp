@@ -15,7 +15,7 @@ using namespace std;
 #include "RegisterServer.h"
 #include <pthread.h>
 #include "IPPack.h"
-#include "PeerCommunicator.h"
+#include "VirtualPeerLoop.h"
 #include "SortedIntegerArray.h"
 #include "PeerWatcher.h"
 #include "HAMCore.h"
@@ -262,7 +262,7 @@ ASSEMBLER
     ippackSet["Node4"] = new IPPack("0.0.0.0",7803);
     ippackSet["Node5"] = new IPPack("0.0.0.0",7804);
 /*
-    PeerCommunicator pc;
+    VirtualPeerLoop pc;
     pc.SetPeerNode(ippackSet,"Node4");
     pc.ShowPeerLoop();
     pc.AddPeerToRightOfNode(pc.GetConnectedNode()->GetNodeName(),new PeerNode("NewNode", new IPPack("0.0.0.0",9996)));
