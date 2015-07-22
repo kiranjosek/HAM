@@ -21,6 +21,7 @@ void PeerSocketClass::AddSocketToPeerWatch(char* ipAddr,int port)
     pthread_mutex_lock(&m_peerlock);
     int sockFd = CreateClientSocket(ipAddr,port);
     IPPack* pif = new IPPack(ipAddr,port);
+    pif->m_socketDescriptor = sockFd;
     m_socketIdMap[sockFd] = pif;
     //    pif.show();
     printf("New Socket Descriptor: %d\n",sockFd);
@@ -28,14 +29,14 @@ void PeerSocketClass::AddSocketToPeerWatch(char* ipAddr,int port)
     pthread_mutex_unlock(&m_peerlock);
 }
 
-void PeerSocketClass::AddSocketToPeerWatch(IPPack* pif,int sockFd)
+void PeerSocketClass::AddSocketToPeerWatch(IPPack* pif)
 {
-    printf("PeerSocketClass::AddSocketToPeerWatch(IPPack,%d);\n",sockFd);
+    printf("PeerSocketClass::AddSocketToPeerWatch(IPPack,%d);\n",pif->m_socketDescriptor);
 
     pthread_mutex_lock(&m_peerlock);
-    m_socketIdMap[sockFd] = pif;
-    printf("New Socket Descriptor: %d\n",sockFd);
-    AddSocketForWatch(sockFd,new SocketInfo(sockFd,64));
+    m_socketIdMap[pif->m_socketDescriptor] = pif;
+    printf("New Socket Descriptor: %d\n",pif->m_socketDescriptor);
+    AddSocketForWatch(pif->m_socketDescriptor,new SocketInfo(pif->m_socketDescriptor,64));
     pthread_mutex_unlock(&m_peerlock);
 }
 

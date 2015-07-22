@@ -43,7 +43,8 @@ SOURCES += \
     DataMultiplexer.cpp \
     CallBackClass.cpp \
     Socket/SocketBase.cpp \
-    HAMCore.cpp
+    HAMCore.cpp \
+    IPPack.cpp
 
 #Expat_XML/include/ Expat_XML/src Expat_XML/
 

@@ -39,7 +39,6 @@ protected:
 
 //    int SetSocketFlags(int sock,int newFlag);
     void AddDescriptor(void* eventData = NULL);
-    void setWatcherWaitTimer(long timeInMilliSec);
 
     virtual void AcceptNewClientConnection(struct epoll_event &event);
     virtual void ProcessClientEvent(struct epoll_event &event);
@@ -54,6 +53,7 @@ public:
     void CreatePeerEpollSocket(uint32_t eventsToHandle,int maxEvent);
 
     void AddSocketForWatch(int infd,void* buff);
+    void setWatcherWaitTimer(long timeInMilliSec);
 
     void StartWatcher();
     void StartServerWatcher();

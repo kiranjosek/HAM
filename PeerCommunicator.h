@@ -14,10 +14,13 @@ class PeerCommunicator //:public SocketWatcher/*, public SocketClass*/
 public:
 
     PeerCommunicator();
-    void SetPeerNode(map<string,IPPack*> &peerNodes,int myPosition);
+    void SetPeerNode(map<string,IPPack*> &peerNodes,string myName);
     void ShowPeerLoop();
-    PeerNode*& getConnectedNode();
-    PeerNode*& getThisNode();
+    PeerNode*& GetConnectedNode();
+    PeerNode*& GetThisNode();
+
+    void AddPeerToRightOfNode(string node_name, PeerNode* newNode);
+
 /*
     virtual void EventErrorHandler(struct epoll_event &event);
     virtual void AcceptNewClientConnection(struct epoll_event &event);

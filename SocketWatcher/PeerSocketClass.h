@@ -24,7 +24,7 @@ public:
     ~PeerSocketClass();
 
     void AddSocketToPeerWatch(char* ipAddr,int port);
-    void AddSocketToPeerWatch(IPPack* pif,int sockfd);
+    void AddSocketToPeerWatch(IPPack* pif);
     IPPack* RemoveSocketFromPeerWatch(int sockfd);
     virtual void EventErrorHandler(struct epoll_event &event);
     //    virtual void AcceptNewClientConnection(struct epoll_event &event);

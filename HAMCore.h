@@ -7,7 +7,7 @@ enum HAM_CMD
 {
     eHAM_RESERVED,
     eHAM_INST_REQUEST,
-    eHAM_NEW_NODE,
+    eHAM_ADD_NEW_NODE,
     eHAM_RING,
     eHAM_DOWN_THIS,
     eHAM_CNODE_TEST,

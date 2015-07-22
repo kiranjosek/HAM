@@ -24,14 +24,13 @@ class PeerNode
     PeerNode* m_leftNode;
     PeerNode* m_rightNode;
 
-    struct sockaddr_in m_socketAddress;
-    int m_socketDescriptor;
+
     string m_nodeName;
 
 public:
 
     PeerNode();
-    struct IPPack* m_IPSet;
+    IPPack* m_IPSet;
     PeerNode(string nodeName, IPPack* ipPack);
 
     PeerNode*& GetLeftPeer();
@@ -39,13 +38,6 @@ public:
 
     void SetLeftPeer(PeerNode* leftNode);
     void SetRightPeer(PeerNode* rightNode);
-    void SetSocketDescriptor(int sockfd);
-    int  GetSocketDescriptor();
-
-    int  IpEqual(struct sockaddr_in addr);
-    void SetIp(struct sockaddr_in addr);
-    void SetAddress(struct sockaddr_in addr);
-    void GetAddress(struct sockaddr_in *sin);
     string GetNodeName();
 
     void readRequest();

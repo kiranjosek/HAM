@@ -2,23 +2,40 @@
 
 PeerCommunicator::PeerCommunicator()
 {
-    /*    int sockFd = CreateServerSocket(listeningPort);
+/*    int sockFd = CreateServerSocket(listeningPort);
     CreateEpollSocket(sockFd);
     watchEvent = &SocketWatcher::StartServerWatcher;
     setWatcherWaitTimer(180000);
 */
 }
 
-void PeerCommunicator::SetPeerNode(map<string,IPPack*> &peerNodes,int myPosition)
+void PeerCommunicator::SetPeerNode(map<string,IPPack*> &peerNodes,string myName)
 {
     map<string,IPPack*>::iterator iter = peerNodes.begin();
     map<string,IPPack*>::iterator iterEnd = peerNodes.end();
 
     int totalCount = peerNodes.size();
+    int myPosition = 0;
+    for(; iter != iterEnd; ++iter)
+    {
+        if(iter->first == myName)
+        {
+            break;
+        }
+        ++myPosition;
+    }
 
+    //iter = peerNodes.find(myName);
+
+    if(iter == iterEnd)
+    {
+        cerr << "My Name ["<< myName<<"]" <<"not found in Node list\n";
+        exit(0);
+    }
+/*
     for(int i = 0; i < myPosition; ++i)
         ++iter;
-
+*/
     m_thisNode = new PeerNode(iter->first,iter->second);
     ++iter;
 
@@ -69,16 +86,32 @@ void PeerCommunicator::SetPeerNode(map<string,IPPack*> &peerNodes,int myPosition
     }
 }
 
-PeerNode*& PeerCommunicator::getConnectedNode()
+PeerNode*& PeerCommunicator::GetConnectedNode()
 {
     return m_connectedPeers;
 }
 
-PeerNode*& PeerCommunicator::getThisNode()
+PeerNode*& PeerCommunicator::GetThisNode()
 {
     return m_thisNode;
 }
 
+void PeerCommunicator::AddPeerToRightOfNode(string node_name, PeerNode* newNode)
+{
+    if(m_peerLoopStart)
+    {
+        PeerNode *currNode = m_peerLoopStart;
+
+        if(currNode->GetNodeName() == node_name)
+        {
+            PeerNode *tmp = currNode->GetRightPeer();
+            currNode->GetRightPeer() = newNode;
+            newNode->GetRightPeer() = tmp;
+        }
+    }
+
+//    ShowPeerLoop();
+}
 
 void PeerCommunicator::ShowPeerLoop()
 {
@@ -86,8 +119,6 @@ void PeerCommunicator::ShowPeerLoop()
     {
         PeerNode *currNode = m_peerLoopStart;
         //        PeerNode *endNode  = m_peerLoopStart->GetLeftPeer();
-
-        cerr << currNode->GetSocketDescriptor();
 
         if( m_peerLoopStart->GetLeftPeer() )
         {

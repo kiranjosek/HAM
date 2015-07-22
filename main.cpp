@@ -160,7 +160,7 @@ int main(int argc, char *argv[])
 
     return 0;
 */
-
+/*
 #ifdef THR
 
     pthread_t tid;
@@ -195,6 +195,7 @@ int main(int argc, char *argv[])
     sockCl.StartWatcher();
 
 #else
+    */
     /*
     pthread_t tid;
     int err = pthread_create(&tid, NULL, clientReceiver, 0);
@@ -224,7 +225,7 @@ int main(int argc, char *argv[])
     //    #define DEBUG_PANIC(p) CLogging::Debuglogf("Debug Marker (%s)- :: %s() in file: %s (%d)",p,__func__,__FILE__,__LINE__)
 
 
-    fprintf(stderr,"%s %s %d %s %d %d %s %s\n",__FILE__,__FUNCTION__,__LINE__,__PRETTY_FUNCTION__,__STDC__,__cplusplus,__DATE__,__TIME__);
+//    fprintf(stderr,"%s %s %d %s %d %d %s %s\n",__FILE__,__FUNCTION__,__LINE__,__PRETTY_FUNCTION__,__STDC__,__cplusplus,__DATE__,__TIME__);
     /*
 FILE
 LINE
@@ -260,8 +261,15 @@ ASSEMBLER
     ippackSet["Node3"] = new IPPack("0.0.0.0",7802);
     ippackSet["Node4"] = new IPPack("0.0.0.0",7803);
     ippackSet["Node5"] = new IPPack("0.0.0.0",7804);
+/*
+    PeerCommunicator pc;
+    pc.SetPeerNode(ippackSet,"Node4");
+    pc.ShowPeerLoop();
+    pc.AddPeerToRightOfNode(pc.GetConnectedNode()->GetNodeName(),new PeerNode("NewNode", new IPPack("0.0.0.0",9996)));
 
-    PEERWATCHER.SetPeerNode(ippackSet,atoi(argv[1]));
+    return 0;
+*/
+    PEERWATCHER.SetPeerNode(ippackSet,argv[1]);
 
     HAMCore ham;
     ham.HAMStart();
@@ -335,7 +343,7 @@ ASSEMBLER
 
 
     //    return 0;
-
+#if 0
     //    SubscriberServer sockCl(4040);
     //    sockCl.StartWatcher();
 

@@ -137,7 +137,7 @@ void SocketWatcher::StartWatcher()
 
 void SocketWatcher::StartServerWatcher()
 {
-    printf("startWatcher\n");
+    printf("startServerWatcher\n");
     int numberOfPollEvent,i;
 
     while(1)
@@ -186,7 +186,7 @@ void SocketWatcher::StartServerWatcher()
 
 void SocketWatcher::StartClientWatcher()
 {
-    printf("startWatcher\n");
+    printf("startClientWatcher\n");
     int numberOfPollEvent,i=0;
 
     while(1)
@@ -219,7 +219,7 @@ void SocketWatcher::StartClientWatcher()
 
 void SocketWatcher::StartPeerWatcher()
 {
-    printf("peerWatcher\n");
+//    printf("StartPeerWatcher\n");
     int numberOfPollEvent,i;
 
     while(1)
