@@ -4,6 +4,7 @@ extern  PeerWatcher PEERWATCHER;
 
 void *peerMonitor(void*)
 {
+    /*
     pthread_t tid1;
 
     //    PEERWATCHER.getConnectedNode()->m_IPSet->show();
@@ -13,8 +14,8 @@ void *peerMonitor(void*)
     {
         cerr << "Thread CreationFailed in connecting to Peer\n";
     }
-
-    PEERWATCHER.setWatcherWaitTimer(10000);
+*/
+    //    PEERWATCHER.setWatcherWaitTimer(10000);
     PEERWATCHER.StartWatcher();
     return NULL;
 }
@@ -26,24 +27,20 @@ void HAMCore::processRequest()
 
 HAMCore::HAMCore():RegisterServer(PEERWATCHER.GetThisNode()->m_IPSet->m_port)
 {
-
+    m_peerWatcherThread = -1;
 }
 
 void HAMCore::startPeerMonitor()
 {
-//    while(1)
+
+    int err = pthread_create(&m_peerWatcherThread, NULL, peerMonitor, NULL);
+
+    if(err < 0)
     {
-        pthread_t tid;
-
-        int err = pthread_create(&tid, NULL, peerMonitor, NULL);
-
-        if(err < 0)
-        {
-            cerr << "Thread Failed in Peer Monitoring\n";
-        }
-        sleep(10);
-        cerr << "Peer Monitor Restarting\n";
+        cerr << "Thread Failed in Peer Monitoring\n";
     }
+    sleep(10);
+    cerr << "Peer Monitor Restarting\n";
 
 }
 

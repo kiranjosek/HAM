@@ -2,7 +2,7 @@
 
 VirtualPeerLoop::VirtualPeerLoop()
 {
-/*    int sockFd = CreateServerSocket(listeningPort);
+    /*    int sockFd = CreateServerSocket(listeningPort);
     CreateEpollSocket(sockFd);
     watchEvent = &SocketWatcher::StartServerWatcher;
     setWatcherWaitTimer(180000);
@@ -32,7 +32,7 @@ void VirtualPeerLoop::SetPeerNode(map<string,IPPack*> &peerNodes,string myName)
         cerr << "My Name ["<< myName<<"]" <<"not found in Node list\n";
         exit(0);
     }
-/*
+    /*
     for(int i = 0; i < myPosition; ++i)
         ++iter;
 */
@@ -110,7 +110,7 @@ void VirtualPeerLoop::AddPeerToRightOfNode(string node_name, PeerNode* newNode)
         }
     }
 
-//    ShowPeerLoop();
+    //    ShowPeerLoop();
 }
 
 void VirtualPeerLoop::ShowPeerLoop()
@@ -133,6 +133,87 @@ void VirtualPeerLoop::ShowPeerLoop()
 
     }
 }
+
+string VirtualPeerLoop::GetNodeAsBuffer()
+{
+    string str;
+    char buff[1024];
+    int i=0;
+    if(m_thisNode == NULL)
+    {
+        return str;
+    }
+
+    char c='\0';
+
+    memcpy(buff+i, m_thisNode->m_IPSet, sizeof(IPPack));
+    i=i+sizeof(IPPack);
+    //    str.append(buff, sizeof(IPPack));
+    //    strcpy(buff,m_thisNode->GetNodeName().c_str());
+    //    str.append(buff, m_thisNode->GetNodeName().size());
+
+    memcpy(buff+i,(char*)m_thisNode->GetNodeName().c_str(), m_thisNode->GetNodeName().size());
+    i=i+m_thisNode->GetNodeName().size();
+    memcpy(buff+i,&c,1);
+    i++;
+
+
+    PeerNode* currentNode = m_connectedPeers;
+    currentNode = currentNode->GetRightPeer();
+
+    for(; currentNode != m_connectedPeers; currentNode = currentNode->GetRightPeer())
+    {
+        memcpy(buff+i, currentNode->m_IPSet, sizeof(IPPack));
+        i=i+sizeof(IPPack);
+        memcpy(buff+i,(char*)currentNode->GetNodeName().c_str(), currentNode->GetNodeName().size());
+
+
+        //        str.append(buff, sizeof(IPPack));
+        //        str.append((char*)currentNode->GetNodeName().c_str(), currentNode->GetNodeName().size());
+        //        str.append('\0');
+        i=i+currentNode->GetNodeName().size();
+        memcpy(buff+i,&c,1);
+        i++;
+
+    }
+
+    str.append(buff,i);
+    cout << "Size of str: " <<str.size();
+
+
+    return str;
+}
+
+void VirtualPeerLoop::SetPeerLoopFromBuffer(string &str,map<string,IPPack*> &peerNodes)
+{
+    for(int i=0;i<str.size();)
+    {
+        char buff[sizeof(IPPack)];
+        IPPack* ippack = new IPPack();
+        memcpy(ippack,&str.at(i), sizeof(IPPack));
+
+        //        ippack->Show();
+        i=i+sizeof(IPPack);
+
+        cerr << "F= " << i;
+        for(int j = i,k=0 ;j<str.size();++j,++k)
+        {
+            buff[k] = str.at(j);
+            cerr << buff[k];
+
+            if(str.at(j) == '\0')
+            {
+                cerr << buff << "C="  << j<< endl;
+                i = j+1;
+                break;
+            }
+        }
+
+
+
+    }
+}
+
 
 /*
 void VirtualPeerLoop::EventErrorHandler(struct epoll_event &event)

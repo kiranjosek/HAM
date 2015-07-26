@@ -52,7 +52,7 @@ public:
     void CreateEpollSocket(int clientSocketfd,uint32_t eventsToHandle,void* buffer);
     void CreatePeerEpollSocket(uint32_t eventsToHandle,int maxEvent);
 
-    void AddSocketForWatch(int infd,void* buff);
+    void* AddSocketForWatch(int infd,void* buff);
     void setWatcherWaitTimer(long timeInMilliSec);
 
     void StartWatcher();

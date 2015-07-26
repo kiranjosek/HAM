@@ -19,6 +19,9 @@ public:
     PeerNode*& GetConnectedNode();
     PeerNode*& GetThisNode();
 
+    string GetNodeAsBuffer();
+    void SetPeerLoopFromBuffer(string &str,map<string,IPPack*> &peerNodes);
+
     void AddPeerToRightOfNode(string node_name, PeerNode* newNode);
 
 /*

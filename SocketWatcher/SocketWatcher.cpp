@@ -56,17 +56,19 @@ void SocketWatcher::CreatePeerEpollSocket(uint32_t eventsToHandle,int maxEvent)
     m_epollDescriptor = epoll_create(maxEvent);
 }
 
-void SocketWatcher::AddSocketForWatch(int infd,void* buff)
+void* SocketWatcher::AddSocketForWatch(int infd,void* buff)
 {
+
+    struct epoll_event event;
     if(SetSocketFlags(infd,O_NONBLOCK) < 0)
     {
         perror ("AddSocketForWatch Flag Error:");
-        return;// exit()
+        return NULL;// exit()
     }
 
     ++m_maximumEventCount;
 
-    struct epoll_event event;
+//    struct epoll_event event;
     event.data.ptr = buff;
 
 #ifdef EDGETRIGGERED
@@ -77,13 +79,14 @@ void SocketWatcher::AddSocketForWatch(int infd,void* buff)
     if(epoll_ctl(m_epollDescriptor,EPOLL_CTL_ADD,infd,&event))
     {
         perror ("epoll_ctl");
-        return; // exit()
+        return NULL; // exit()
     }
 
 
     if(m_events == NULL)
         m_events = (struct epoll_event*)calloc(1024,sizeof(epoll_event)); // neeed change
 
+    return buff;
 
 }
 
@@ -219,7 +222,7 @@ void SocketWatcher::StartClientWatcher()
 
 void SocketWatcher::StartPeerWatcher()
 {
-//    printf("StartPeerWatcher\n");
+    //    printf("StartPeerWatcher\n");
     int numberOfPollEvent,i;
 
     while(1)

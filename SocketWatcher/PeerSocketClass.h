@@ -17,6 +17,7 @@ class PeerSocketClass : public SocketWatcher/*, public SocketClass*/
 {
     pthread_mutex_t m_peerlock ;
     map<int,IPPack*> m_socketIdMap;
+    map<int,void*> m_socketIdMemoryMap;
 
 public:
 

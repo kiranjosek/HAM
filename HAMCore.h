@@ -20,6 +20,8 @@ enum HAM_CMD
 class HAMCore : public RegisterServer
 {
 
+    pthread_t m_peerWatcherThread;
+
 public:
     HAMCore();
     void startPeerMonitor();

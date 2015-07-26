@@ -25,7 +25,7 @@ void IPPack::SetIPPack(char* ip, int port)
 
 void IPPack::Show()
 {
-    printf("IPPack: IP-> %s PORT->%d\n",m_ip,m_port);
+    fprintf(stderr,"IPPack: IP-> %s PORT->%d\n",m_ip,m_port);
 }
 
 

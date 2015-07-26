@@ -104,6 +104,7 @@ int main(int argc, char *argv[])
 
     if(argc < 2)
         return 0;
+
     /*
     {
         SocketClass ss;
@@ -271,6 +272,14 @@ ASSEMBLER
 */
     PEERWATCHER.SetPeerNode(ippackSet,argv[1]);
 
+    string str = PEERWATCHER.GetNodeAsBuffer();
+//    return 0;
+
+    map<string,IPPack*> ippackSet1;
+
+    PEERWATCHER.SetPeerLoopFromBuffer(str,ippackSet1);
+
+    return 0;
     HAMCore ham;
     ham.HAMStart();
 
