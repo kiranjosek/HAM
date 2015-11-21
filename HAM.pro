@@ -1,3 +1,7 @@
+QT -= qt
+QT -= core
+QT -= gui
+
 DEFINES += EDGETRIGGERED
 
 HEADERS += \
@@ -21,7 +25,8 @@ HEADERS += \
     CallBackClass.h \
     Socket/SocketBase.h \
     IPPack.h \
-    HAMCore.h
+    HAMCore.h \
+    NetworkDiagnostics.h
 SOURCES += \
     Socket/SocketClass.cpp \
     Socket/ServerSocketClass.cpp \
@@ -44,7 +49,8 @@ SOURCES += \
     CallBackClass.cpp \
     Socket/SocketBase.cpp \
     HAMCore.cpp \
-    IPPack.cpp
+    IPPack.cpp \
+    NetworkDiagnostics.cpp
 
 #Expat_XML/include/ Expat_XML/src Expat_XML/
 

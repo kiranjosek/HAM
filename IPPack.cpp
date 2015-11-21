@@ -11,7 +11,7 @@ IPPack::IPPack()
 
 IPPack::IPPack(char * ip, int port)
 {
-    memset(m_ip,'\0',64);
+    IPPack();
     SetIPPack(ip,port);
 }
 

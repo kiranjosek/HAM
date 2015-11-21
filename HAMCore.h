@@ -27,7 +27,7 @@ public:
     void startPeerMonitor();
     void HAMStart();
     virtual void ProcessClientEvent(struct epoll_event &event);
-    void processRequest();
+    void processRequest(char* buf,unsigned int len);
 
 
 

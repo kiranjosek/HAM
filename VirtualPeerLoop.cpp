@@ -192,18 +192,16 @@ void VirtualPeerLoop::SetPeerLoopFromBuffer(string &str,map<string,IPPack*> &pee
         IPPack* ippack = new IPPack();
         memcpy(ippack,&str.at(i), sizeof(IPPack));
 
-        //        ippack->Show();
         i=i+sizeof(IPPack);
 
-        cerr << "F= " << i;
         for(int j = i,k=0 ;j<str.size();++j,++k)
         {
             buff[k] = str.at(j);
-            cerr << buff[k];
-
             if(str.at(j) == '\0')
             {
-                cerr << buff << "C="  << j<< endl;
+                string s(buff);
+                peerNodes[s] = ippack;
+
                 i = j+1;
                 break;
             }

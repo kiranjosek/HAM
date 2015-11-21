@@ -20,14 +20,17 @@ void *peerMonitor(void*)
     return NULL;
 }
 
-void HAMCore::processRequest()
+void HAMCore::processRequest(char* buff,unsigned int len)
 {
-
+    for(unsigned int i=0;i<len ;++i)
+    {
+        cerr <<  buff[i];
+    }
 }
 
 HAMCore::HAMCore():RegisterServer(PEERWATCHER.GetThisNode()->m_IPSet->m_port)
 {
-    m_peerWatcherThread = -1;
+    m_peerWatcherThread = 0;
 }
 
 void HAMCore::startPeerMonitor()
@@ -41,7 +44,15 @@ void HAMCore::startPeerMonitor()
     }
     sleep(10);
     cerr << "Peer Monitor Restarting\n";
+}
 
+void HAMCore::restartPeerWatcher()
+{
+    if(m_peerWatcherThread !=0)
+    {
+        pthread_kill(m_peerWatcherThread,SIGTSTP);
+        startPeerMonitor();
+    }
 }
 
 void HAMCore::HAMStart()
@@ -75,6 +86,7 @@ void HAMCore::ProcessClientEvent(struct epoll_event &event)
         if(done == 0)
         {
             printf("virtual ProcessData() : %u %s",*dh->m_dataLength, ((char*)dh->m_dataBuffer)+ sizeof(unsigned int));
+            processRequest(((char*)dh->m_dataBuffer)+ sizeof(unsigned int),*dh->m_dataLength);
             dh->ResetPosition();
         }
         if(done == 1) // socket read Error

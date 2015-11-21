@@ -278,6 +278,8 @@ ASSEMBLER
     map<string,IPPack*> ippackSet1;
 
     PEERWATCHER.SetPeerLoopFromBuffer(str,ippackSet1);
+//    (ippackSet1["Node5"])->Show();
+
 
     return 0;
     HAMCore ham;
